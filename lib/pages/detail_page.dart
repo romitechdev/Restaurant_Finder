@@ -1,5 +1,6 @@
 // lib/pages/detail_page.dart
 import 'package:flutter/material.dart';
+import 'package:myapp/providers/favorite_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/models/api_response.dart';
 import 'package:myapp/models/restaurant.dart';
@@ -22,7 +23,10 @@ class _DetailPageState extends State<DetailPage> {
     super.initState();
     Future.microtask(() {
       if (mounted) {
-        Provider.of<RestaurantProvider>(context, listen: false).fetchRestaurantDetail(widget.restaurantId);
+        Provider.of<RestaurantProvider>(
+          context,
+          listen: false,
+        ).fetchRestaurantDetail(widget.restaurantId);
       }
     });
   }
@@ -30,13 +34,11 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail Restaurant'),
-      ),
+      appBar: AppBar(title: const Text('Detail Restaurant')),
       body: Consumer<RestaurantProvider>(
         builder: (context, provider, child) {
           final response = provider.restaurantDetail;
-           return switch (response) {
+          return switch (response) {
             ApiLoading() => const LoadingIndicator(),
             ApiSuccess(data: final restaurant) => SingleChildScrollView(
               child: Column(
@@ -46,15 +48,61 @@ class _DetailPageState extends State<DetailPage> {
                     'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 220,
+                        width: double.infinity,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainerHighest,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.broken_image, size: 48),
+                      );
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          restaurant.name,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                restaurant.name,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ),
+                            Consumer<FavoriteProvider>(
+                              builder: (context, favoriteProvider, child) {
+                                final isFavorite = favoriteProvider.isFavorite(
+                                  restaurant.id,
+                                );
+                                return IconButton(
+                                  onPressed: () {
+                                    favoriteProvider.toggleFavorite(
+                                      Restaurant(
+                                        id: restaurant.id,
+                                        name: restaurant.name,
+                                        description: restaurant.description,
+                                        pictureId: restaurant.pictureId,
+                                        city: restaurant.city,
+                                        rating: restaurant.rating,
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isFavorite ? Colors.red : null,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         Row(
@@ -69,9 +117,13 @@ class _DetailPageState extends State<DetailPage> {
                           ],
                         ),
                         const SizedBox(height: 8),
-                         Row(
+                        Row(
                           children: [
-                            const Icon(Icons.star, size: 16, color: Colors.amber),
+                            const Icon(
+                              Icons.star,
+                              size: 16,
+                              color: Colors.amber,
+                            ),
                             const SizedBox(width: 4),
                             Text(restaurant.rating.toString()),
                           ],
@@ -101,8 +153,9 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            ApiError(message: final message) =>
-              ErrorMessageWidget(message: message),
+            ApiError(message: final message) => ErrorMessageWidget(
+              message: message,
+            ),
             _ => const SizedBox.shrink(),
           };
         },

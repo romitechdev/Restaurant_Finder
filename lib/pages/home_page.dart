@@ -1,10 +1,10 @@
 // lib/pages/home_page.dart
 import 'package:flutter/material.dart';
-import 'package:myapp/models/restaurant.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/models/api_response.dart';
+import 'package:myapp/pages/favorite_page.dart';
+import 'package:myapp/pages/settings_page.dart';
 import 'package:myapp/providers/restaurant_provider.dart';
-import 'package:myapp/providers/theme_provider.dart';
 import 'package:myapp/widgets/loading_indicator.dart';
 import 'package:myapp/widgets/error_widget.dart';
 import 'package:myapp/widgets/restaurant_card.dart';
@@ -22,28 +22,39 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     Future.microtask(() {
       if (mounted) {
-        Provider.of<RestaurantProvider>(context, listen: false)
-            .fetchRestaurantList();
+        Provider.of<RestaurantProvider>(
+          context,
+          listen: false,
+        ).fetchRestaurantList();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Restaurant App'),
         actions: [
           IconButton(
-            icon: Icon(themeProvider.themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () => themeProvider.toggleTheme(),
-            tooltip: 'Toggle Theme',
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FavoritePage()),
+              );
+            },
+            tooltip: 'Favorite',
           ),
           IconButton(
-            icon: const Icon(Icons.auto_mode),
-            onPressed: () => themeProvider.setSystemTheme(),
-            tooltip: 'Set System Theme',
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
+            },
+            tooltip: 'Settings',
           ),
         ],
       ),
@@ -53,13 +64,14 @@ class _HomePageState extends State<HomePage> {
           return switch (response) {
             ApiLoading() => const LoadingIndicator(),
             ApiSuccess(data: final restaurants) => ListView.builder(
-                itemCount: restaurants.length,
-                itemBuilder: (context, index) {
-                  return RestaurantCard(restaurant: restaurants[index]);
-                },
-              ),
-            ApiError(message: final message) =>
-              ErrorMessageWidget(message: message),
+              itemCount: restaurants.length,
+              itemBuilder: (context, index) {
+                return RestaurantCard(restaurant: restaurants[index]);
+              },
+            ),
+            ApiError(message: final message) => ErrorMessageWidget(
+              message: message,
+            ),
             _ => const SizedBox.shrink(),
           };
         },
