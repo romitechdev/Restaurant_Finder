@@ -1,78 +1,78 @@
 
-# Restaurant Finder - Aplikasi Flutter
+# Restaurant Finder - Flutter App
 
 ![Restaurant App Demo](https://firebasestorage.googleapis.com/v0/b/project-revelation-396514.appspot.com/o/pop-os-2024-07-25_21-02-18.gif?alt=media&token=c60c3b87-142f-488f-b98a-bb0977209930)
 
-## 📜 Deskripsi
+## 📜 Description
 
-Ini adalah aplikasi mobile Flutter yang menampilkan daftar restoran. Aplikasi ini dibuat sebagai contoh proyek portofolio yang menunjukkan implementasi konsep-konsep modern dalam pengembangan Flutter, termasuk arsitektur yang bersih, state management, dan desain UI yang responsif.
+This is a Flutter mobile app that displays a list of restaurants. The app was created as a sample portfolio project demonstrating the implementation of modern concepts in Flutter development, including clean architecture, state management, and responsive UI design.
 
-Aplikasi ini mengambil data restoran dari file JSON lokal dan menampilkannya dalam daftar yang menarik. Pengguna dapat melihat detail setiap restoran di halaman terpisah dan juga dapat mengganti tema antara mode terang (light) dan gelap (dark).
-
----
-
-## ✨ Fitur Utama
-
--   **Daftar Restoran**: Menampilkan daftar restoran dengan gambar, nama, dan kota.
--   **Halaman Detail**: Halaman khusus untuk setiap restoran yang menampilkan informasi lebih lengkap seperti deskripsi, menu makanan, dan minuman.
--   **State Management**: Menggunakan `Provider` untuk mengelola state aplikasi, seperti data restoran dan tema.
--   **Tema Terang & Gelap**: Terdapat tombol untuk beralih antara mode terang dan gelap secara dinamis.
--   **UI Responsif**: Tampilan yang menyesuaikan diri dengan berbagai ukuran layar.
--   **Arsitektur Bersih**: Kode disusun dengan memisahkan layer UI (pages, widgets), state management (providers), dan data (models).
--   **Kustomisasi Font**: Menggunakan paket `google_fonts` untuk tipografi yang lebih menarik.
+The app fetches restaurant data from a local JSON file and displays it in an attractive list. Users can view the details of each restaurant on a separate page, and can also switch the theme between light and dark mode.
 
 ---
 
-## 🚀 Teknologi & Pustaka
+## ✨ Key Features
+
+-   **Restaurant List**: Displays a list of restaurants with images, names, and cities.
+-   **Detail Page**: A dedicated page for each restaurant showing more complete information such as descriptions, food menu, and drinks.
+-   **State Management**: Uses `Provider` to manage application state, such as restaurant data and theme.
+-   **Light & Dark Theme**: Includes a button to dynamically switch between light and dark mode.
+-   **Responsive UI**: A layout that adapts to various screen sizes.
+-   **Clean Architecture**: Code is organized by separating the UI layer (pages, widgets), state management (providers), and data (models).
+-   **Font Customization**: Uses the `google_fonts` package for more appealing typography.
+
+---
+
+## 🚀 Technology & Libraries
 
 -   **Framework**: [Flutter](https://flutter.dev/)
--   **Bahasa**: [Dart](https://dart.dev/)
+-   **Language**: [Dart](https://dart.dev/)
 -   **State Management**: [provider](https://pub.dev/packages/provider)
 -   **HTTP Client**: [http](https://pub.dev/packages/http)
--   **Tipografi**: [google_fonts](https://pub.dev/packages/google_fonts)
--   **Analisis Kode**: [flutter_lints](https://pub.dev/packages/flutter_lints)
+-   **Typography**: [google_fonts](https://pub.dev/packages/google_fonts)
+-   **Code Analysis**: [flutter_lints](https://pub.dev/packages/flutter_lints)
 
 ---
 
-## 📂 Struktur Proyek
+## 📂 Project Structure
 
-Proyek ini disusun dengan struktur folder yang berorientasi pada fitur untuk memudahkan navigasi dan skalabilitas:
+The project is organized with a feature-oriented folder structure to make navigation and scalability easier:
 
 ```
 lib/
-├── models/         # Model data untuk aplikasi (Restaurant, ApiResponse)
-├── pages/          # Halaman atau layar utama (HomePage, DetailPage)
-├── providers/      # Logika bisnis dan state management (RestaurantProvider, ThemeProvider)
-├── widgets/        # Komponen UI yang dapat digunakan kembali (RestaurantCard, ErrorWidget)
-└── main.dart       # Titik masuk utama aplikasi dan konfigurasi tema
+├── models/         # Data models for the app (Restaurant, ApiResponse)
+├── pages/          # Main pages or screens (HomePage, DetailPage)
+├── providers/      # Business logic and state management (RestaurantProvider, ThemeProvider)
+├── widgets/        # Reusable UI components (RestaurantCard, ErrorWidget)
+└── main.dart       # Main application entry point and theme configuration
 ```
 
 ---
 
-## 🏁 Memulai
+## 🏁 Getting Started
 
-Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+To run this project locally, follow these steps:
 
-1.  **Clone repositori ini:**
+1.  **Clone this repository:**
     ```bash
     git clone https://github.com/NAMAPENGGUNAANDA/NAMA-REPOSITORIANDA.git
     ```
 
-2.  **Masuk ke direktori proyek:**
+2.  **Enter the project directory:**
     ```bash
     cd NAMA-REPOSITORIANDA
     ```
 
-3.  **Instal semua dependensi:**
+3.  **Install all dependencies:**
     ```bash
     flutter pub get
     ```
 
-4.  **Jalankan aplikasi:**
+4.  **Run the application:**
     ```bash
     flutter run
     ```
 
 ---
 
-> Proyek ini dibuat untuk tujuan demonstrasi dan portofolio. Jangan ragu untuk menggunakannya sebagai referensi.
+> This project was created for demonstration and portfolio purposes. Feel free to use it as a reference.
