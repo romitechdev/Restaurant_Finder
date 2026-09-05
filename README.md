@@ -76,3 +76,7 @@ To run this project locally, follow these steps:
 ---
 
 > This project was created for demonstration and portfolio purposes. Feel free to use it as a reference.
+
+<!-- last-updated -->
+_Last updated: 2026-09-05_
+
